@@ -1,0 +1,63 @@
+<div *ngIf="items?.length > 0;else noItems" class="row">
+  <div class="col s12">
+      <ul *ngFor="let item of items" class="collection">
+          <li class="collection-item"><strong> {{ item.kitapAdi }} : </strong> {{item.yazar}}  <a href="#" class="secondary-content">
+            <i (click)="editItem($event, item)" class="fa fa-pencil"></i>
+            <i *ngIf="editState && itemToEdit.id == item.id" (click)="clearState()" class="fa fa-compress"></i>
+            </a> 
+            
+            <div *ngIf="editState && itemToEdit.id == item.id">
+              <form (ngSubmit)="updateItem(item)">
+                  <div class="row">
+                      <div class="input-field col s6">
+                        <input type="text" placeholder="Add KitapAdi" [(ngModel)]="item.kitapAdi" name="kitapAdi">
+                      </div>
+              
+                      <div class="input-field col s6">
+                        <input type="text" placeholder="Add Yazar" [(ngModel)]="item.yazar" name="yazar">
+                      </div>
+                      <input type="submit" value="Güncelle" class="btn orange"> 
+                      <button (click)="deleteItem($event, item)" class="btn red"> Sil</button>
+                      
+                  </div>
+              </form>
+            </div>
+      
+          </li>
+        </ul>
+  </div>
+</div>
+
+<ng-template #noItems>
+  <div class="progress">
+      <div class="indeterminate"></div>
+  </div>
+  <div>
+    <h5 class="center-align">Kayıtlı Kitap Bulunamadı</h5>
+  </div>
+</ng-template>
+
+<hr>
+
+<div  class="row" >
+    <div *ngFor="let item of items" class="col s6 m3">
+      <div class="card" >
+        <div class="card-image">
+          <img src="{{item.imageUrl}}" class="center" style="width:100max-300px" >
+          
+        </div>
+        <div class="card-title" style="margin: 15px; margin-top: 10px">
+            <b >{{item.kitapAdi}}</b>
+        </div>
+        <div class="card-content">
+          <p>I am a very simple card. I am good at containing small bits oinformation.
+            I am convenient because I require little markup tuseffectively.
+          </p>
+        </div>
+         <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+</div>  
+

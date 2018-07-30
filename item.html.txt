@@ -1,0 +1,32 @@
+<div *ngIf="items?.length > 0;else noItems">
+  <ul *ngFor="let item of items" class="collection">
+    <li class="collection-item"><strong> {{ item.kitapAdi }} : </strong> {{item.yazar}}  <a href="#" class="secondary-content">
+      <i (click)="editItem($event, item)" class="fa fa-pencil"></i>
+      <i *ngIf="editState && itemToEdit.id == item.id" (click)="clearState()" class="fa fa-compress"></i>
+      </a> 
+      
+      <div *ngIf="editState && itemToEdit.id == item.id">
+        <form (ngSubmit)="updateItem(item)">
+            <div class="row">
+                <div class="input-field col s6">
+                  <input type="text" placeholder="Add KitapAdi" [(ngModel)]="item.kitapAdi" name="kitapAdi">
+                </div>
+        
+                <div class="input-field col s6">
+                  <input type="text" placeholder="Add Yazar" [(ngModel)]="item.yazar" name="yazar">
+                </div>
+                <input type="submit" value="Güncelle" class="btn orange"> 
+                <button (click)="deleteItem($event, item)" class="btn red"> Sil</button>
+            </div>
+        </form>
+      </div>
+
+    </li>
+  </ul>
+</div>
+
+
+<ng-template #noItems>
+  <hr>
+  <h5>Listelenecek veri yok</h5>
+</ng-template>
